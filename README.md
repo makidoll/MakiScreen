@@ -23,4 +23,4 @@
 
 # Help
 
-You can contact me on **Discord** at **Maki#4845** or on **Twitter** at [@MakiXx_](https://twitter.com/MakiXx_)
+You can contact me on **Discord** at [Maki#4845](https://maki.cat/discord) or on **Twitter** at [@MakiXx_](https://twitter.com/MakiXx_)
