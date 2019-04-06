@@ -20,6 +20,7 @@
 - Run **OBS** and make sure the output resolution is **256x128**
 - Enable **Tools>VirtualCam**
 - Open terminal shell and enter `ffmpeg -y -f dshow -i video="OBS-Camera" -vf scale=256:128 -f rawvideo -c:v mjpeg -qscale:v 1 -r 60 udp://127.0.0.1:1337`
+- Type `/maki` in Minecraft to get both maps
 
 ## Help me
 
