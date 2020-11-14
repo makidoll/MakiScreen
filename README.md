@@ -1,6 +1,8 @@
 # MakiScreen
 > 📺 Streaming OBS video into maps on item frames at a high frame rate
 
+[![](youtube-embed.png)](https://youtu.be/kyyuanJ6Pt8)
+
 ## How does it works
 
 - Load jar plugin onto 1.13+ Spigot server
