@@ -1,13 +1,13 @@
 # MakiScreen
 > 📺 Streaming OBS video into maps on item frames at a high frame rate
 
-[![](youtube-embed.png)](https://youtu.be/kyyuanJ6Pt8)
+[![](youtube-embed.png)](https://youtu.be/IvEZr8z5eu4)
 
 ## How does it works
 
 - Load jar plugin onto 1.17+ Paper server
 - It will start a thread to listen for UDP packets on port 1337
-- Use ffmpeg to send [OBS Virtual Camera](https://youtu.be/IvEZr8z5eu4) as JPG frames to the UDP socket
+- Use ffmpeg to send [OBS Virtual Camera](https://www.youtube.com/watch?v=bfrknjDzukI) as JPG frames to the UDP socket
 - Renders the latest available frame in Minecraft! 
 
 ## Get started (It's not easy and it's experimental)
