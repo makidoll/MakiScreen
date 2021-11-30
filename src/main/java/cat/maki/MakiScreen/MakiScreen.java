@@ -23,8 +23,6 @@ public final class MakiScreen extends JavaPlugin implements Listener {
 
     private VideoCapture videoCapture;
 
-    private static final int maps = 8;
-
     @Override
     public void onEnable() {
         logger.info("Hi!");
@@ -52,19 +50,16 @@ public final class MakiScreen extends JavaPlugin implements Listener {
         e.getMap().removeRenderer(e.getMap().getRenderers().get(0));
 
         MapView mapView = e.getMap();
-        int id = mapView.getId();
-        if (id>maps) return;
 
         mapView.setScale(MapView.Scale.FARTHEST);
         mapView.setUnlimitedTracking(true);
         mapView.getRenderers().clear();
-        mapView.addRenderer(new MapRenderer(true) {
-            @Override
-            public void render(@NotNull MapView mapView, @NotNull MapCanvas mapCanvas, @NotNull Player player) {
-                videoCapture.renderCanvas(id, mapCanvas);
-            }
-        });
+
     }
+//    //create component for displayName
+//    public static Component displayName(String name) {
+//        return Component.text(name);
+//    }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, Command command, @NotNull String alias, String[] args) {
@@ -75,20 +70,27 @@ public final class MakiScreen extends JavaPlugin implements Listener {
                 return false;
             }
 
-            for (int i=0; i<maps; i++) {
-                getServer().createMap(player.getWorld());
+            for (int i=0; i<8; i++) {
+                MapView mapView = getServer().createMap(player.getWorld());
                 ItemStack itemStack = new ItemStack(Material.FILLED_MAP);
 
                 MapMeta mapMeta = (MapMeta) itemStack.getItemMeta();
-                //mapMeta.setDisplayName("MakiScreen "+(i+1));
-                mapMeta.setMapId(i);
-//                mapMeta.setMapView(getServer().createMap(player.getWorld()));
+//                mapMeta.displayName(displayName("MakiScreen "+(i+1)));
+                mapMeta.setMapView(mapView);
                 itemStack.setItemMeta(mapMeta);
 
                 player.getInventory().addItem(itemStack);
+                int finalI = i;
+                mapView.addRenderer(new MapRenderer(true) {
+                    @Override
+                    public void render(@NotNull MapView mapView, @NotNull MapCanvas mapCanvas, @NotNull Player player) {
+                        videoCapture.renderCanvas(finalI, mapCanvas);
+                    }
+                });
             }
         }
 
         return true;
     }
+
 }

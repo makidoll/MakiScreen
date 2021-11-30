@@ -18,7 +18,7 @@
 - Download [FFmpeg](http://ffmpeg.org/download.html) and make sure its in your path
 - Download [OBS](https://obsproject.com)
 - Run **Paper** server and make sure port **1337 UDP** is available
-- Run **OBS** and make sure the base resolution and output resolution is **512:256** or any resolution with 2:1 aspect ratio, and set the frame rate to **20**
+- Run **OBS** and make sure the base resolution and output resolution is **512x256** or any resolution with 2:1 aspect ratio, and set the frame rate to **20**
 - Enable **Tools>VirtualCam**
 - Open terminal shell and enter `ffmpeg -y -f dshow -i video="OBS Virtual Camera" -vf scale=512:256 -f rawvideo -c:v mjpeg -q:v 31 -qscale:v 1 -r 20 udp://127.0.0.1:1337`
 - Type `/maki` in Minecraft to get the maps
