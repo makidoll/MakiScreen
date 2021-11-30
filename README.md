@@ -5,9 +5,9 @@
 
 ## How does it works
 
-- Load jar plugin onto 1.13+ Spigot server
+- Load jar plugin onto 1.17+ Paper server
 - It will start a thread to listen for UDP packets on port 1337
-- Use ffmpeg to send [OBS-VirtualCamera](https://obsproject.com/forum/resources/obs-virtualcam.539) as JPG frames to the UDP socket
+- Use ffmpeg to send [OBS Virtual Camera](https://www.youtube.com/watch?v=bfrknjDzukI) as JPG frames to the UDP socket
 - Renders the latest available frame in Minecraft! 
 
 ## Get started (It's not easy and it's experimental)
@@ -17,12 +17,11 @@
 - Download [MakiScreen](https://github.com/makitsune/MakiScreen/releases/tag/1.0) jar and place in Spigot 1.13+ server plugins
 - Download [FFmpeg](http://ffmpeg.org/download.html) and make sure its in your path
 - Download [OBS](https://obsproject.com)
-- Download [OBS-VirtualCamera](https://obsproject.com/forum/resources/obs-virtualcam.539)
-- Run **Spigot** server and make sure port **1337 UDP** is available
-- Run **OBS** and make sure the output resolution is **256x128**
+- Run **Paper** server and make sure port **1337 UDP** is available
+- Run **OBS** and make sure the base resolution and output resolution is **512:256** or any resolution with 2:1 aspect ratio, and set the frame rate to **20**
 - Enable **Tools>VirtualCam**
-- Open terminal shell and enter `ffmpeg -y -f dshow -i video="OBS-Camera" -vf scale=256:128 -f rawvideo -c:v mjpeg -qscale:v 1 -r 60 udp://127.0.0.1:1337`
-- Type `/maki` in Minecraft to get both maps
+- Open terminal shell and enter `ffmpeg -y -f dshow -i video="OBS Virtual Camera" -vf scale=512:256 -f rawvideo -c:v mjpeg -q:v 31 -qscale:v 1 -r 20 udp://127.0.0.1:1337`
+- Type `/maki` in Minecraft to get the maps
 
 ## Help me
 

@@ -21,7 +21,7 @@ class VideoCaptureUDPServer extends Thread {
 
     public void run() {
         try {
-            byte[] buffer = new byte[1024*1024]; // 1 mb
+            byte[] buffer = new byte[1024*1024*10]; // 10 mb
             socket = new DatagramSocket(1337);
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 
@@ -37,7 +37,9 @@ class VideoCaptureUDPServer extends Thread {
                         try {
                             ByteArrayInputStream stream = new ByteArrayInputStream(output.toByteArray());
                             onFrame(ImageIO.read(stream));
-                        } catch (IOException e) {}
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
                         output.reset();
                     }
@@ -60,7 +62,6 @@ class VideoCaptureUDPServer extends Thread {
 }
 
 public class VideoCapture extends Thread {
-    public Boolean active = true;
     public int width;
     public int height;
 
@@ -68,31 +69,31 @@ public class VideoCapture extends Thread {
 
     VideoCaptureUDPServer videoCaptureUDPServer;
 
-    private ProcessBuilder ffmpegCommand;
-
 
     public void renderCanvas(int id, MapCanvas mapCanvas) {
-        BufferedImage frame = new BufferedImage(128, 128, BufferedImage.TYPE_INT_RGB);
+        BufferedImage frame = new BufferedImage(128, 128, BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D graphics = frame.createGraphics();
         switch (id) {
-            case 0: graphics.drawImage(currentFrame,0,0,null); break;
-            case 1: graphics.drawImage(currentFrame,-128,0,null); break;
-            //case 2: graphics.drawImage(currentFrame,-256,0,null); break;
-            //case 3: graphics.drawImage(currentFrame,0,-128,null); break;
-            //case 4: graphics.drawImage(currentFrame,-128,-128,null); break;
-            //case 5: graphics.drawImage(currentFrame,-256,-128,null); break;
+            case 0 -> graphics.drawImage(currentFrame, 0, 0, null);
+            case 1 -> graphics.drawImage(currentFrame, -128, 0, null);
+            case 2 -> graphics.drawImage(currentFrame, -256, 0, null);
+            case 3 -> graphics.drawImage(currentFrame, -384, 0, null);
+            case 4 -> graphics.drawImage(currentFrame, 0, -128, null);
+            case 5 -> graphics.drawImage(currentFrame, -128, -128, null);
+            case 6 -> graphics.drawImage(currentFrame, -256, -128, null);
+            case 7 -> graphics.drawImage(currentFrame, -384, -128, null);
         }
-
         mapCanvas.drawImage(0,0, frame);
         graphics.dispose();
+
     }
 
     public VideoCapture(int width, int height) {
         this.width = width;
         this.height = height;
 
-        currentFrame = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        currentFrame = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         videoCaptureUDPServer = new VideoCaptureUDPServer() {
             @Override
@@ -109,17 +110,7 @@ public class VideoCapture extends Thread {
 //        );
     }
 
-    public void run() {
-//        while (active) {
-//            onFrame(getFrame());
-//        }
-    }
-
     public void cleanup() {
         videoCaptureUDPServer.cleanup();
-    }
-
-    public static void main(String[] args) {
-        //new VideoCapture(128*3, 128*2).start();
     }
 }
