@@ -7,7 +7,7 @@
 
 - Load jar plugin onto 1.17+ Paper server
 - It will start a thread to listen for UDP packets on port 1337
-- Use ffmpeg to send [OBS Virtual Camera](https://www.youtube.com/watch?v=bfrknjDzukI) as JPG frames to the UDP socket
+- Use ffmpeg to send [OBS Virtual Camera](https://youtu.be/IvEZr8z5eu4) as JPG frames to the UDP socket
 - Renders the latest available frame in Minecraft! 
 
 ## Get started (It's not easy and it's experimental)
