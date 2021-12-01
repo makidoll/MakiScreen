@@ -62,15 +62,15 @@ class VideoCaptureUDPServer extends Thread {
 }
 
 public class VideoCapture extends Thread {
+    private static Image currentFrame;
     public int width;
     public int height;
 
-    private BufferedImage currentFrame;
 
     VideoCaptureUDPServer videoCaptureUDPServer;
 
 
-    public void renderCanvas(int id, MapCanvas mapCanvas) {
+    public static void renderCanvas(int id, MapCanvas mapCanvas) {
         BufferedImage frame = new BufferedImage(128, 128, BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D graphics = frame.createGraphics();

@@ -23,6 +23,9 @@ public final class MakiScreen extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        ImageManager manager = ImageManager.getInstance();
+        manager.init();
+
         logger.info("Hi!");
         getServer().getPluginManager().registerEvents(this, this);
 
@@ -38,10 +41,6 @@ public final class MakiScreen extends JavaPlugin implements Listener {
         videoCapture.cleanup();
     }
 
-//    //create component for displayName
-//    public static Component displayName(String name) {
-//        return Component.text(name);
-//    }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, Command command, @NotNull String alias, String[] args) {
@@ -56,13 +55,11 @@ public final class MakiScreen extends JavaPlugin implements Listener {
                 MapView mapView = getServer().createMap(player.getWorld());
                 mapView.setScale(MapView.Scale.FARTHEST);
                 mapView.setUnlimitedTracking(true);
-                mapView.getRenderers().clear();
                 mapView.removeRenderer(mapView.getRenderers().get(0));
 
                 ItemStack itemStack = new ItemStack(Material.FILLED_MAP);
 
                 MapMeta mapMeta = (MapMeta) itemStack.getItemMeta();
-//                mapMeta.displayName(displayName("MakiScreen "+(i+1)));
                 mapMeta.setMapView(mapView);
 
                 itemStack.setItemMeta(mapMeta);
@@ -72,9 +69,11 @@ public final class MakiScreen extends JavaPlugin implements Listener {
                 mapView.addRenderer(new MapRenderer(true) {
                     @Override
                     public void render(@NotNull MapView mapView, @NotNull MapCanvas mapCanvas, @NotNull Player player) {
-                        videoCapture.renderCanvas(finalI, mapCanvas);
+                        VideoCapture.renderCanvas(finalI, mapCanvas);
                     }
                 });
+                ImageManager manager = ImageManager.getInstance();
+                manager.saveImage(mapView.getId(), i);
             }
         }
 
