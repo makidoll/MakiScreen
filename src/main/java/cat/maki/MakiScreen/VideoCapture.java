@@ -21,7 +21,7 @@ class VideoCaptureUDPServer extends Thread {
 
     public void run() {
         try {
-            byte[] buffer = new byte[1024*1024*10]; // 10 mb
+            byte[] buffer = new byte[1024*1024]; // 1 mb
             socket = new DatagramSocket(1337);
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 
@@ -104,10 +104,6 @@ public class VideoCapture extends Thread {
 
         videoCaptureUDPServer.start();
 
-//        command = new ProcessBuilder(
-//            ("ffmpeg -y -f dshow -i video=\"OBS-Camera\" -vf scale="+width+":"+height+" -f rawvideo -c:v mjpeg -qscale:v 1 -r 20 tcp://127.0.0.1:1337")
-//                .split(" ")
-//        );
     }
 
     public void cleanup() {
