@@ -12,8 +12,6 @@
 
 ## Get started (It's not easy and it's experimental)
 
-**Beware that map ID 0 to 7 will probably be overwritten**
-
 - Download [MakiScreen](https://github.com/makitsune/MakiScreen/releases/tag/1.0) jar and place in Spigot 1.13+ server plugins
 - Download [FFmpeg](http://ffmpeg.org/download.html) and make sure its in your path
 - Download [OBS](https://obsproject.com)
