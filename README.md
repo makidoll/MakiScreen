@@ -18,7 +18,7 @@
 - Run **Paper** server and make sure port **1337 UDP** is available
 - Run **OBS** and make sure the base resolution and output resolution is **512x256** or any resolution with 2:1 aspect ratio, and set the frame rate to **20**
 - Enable **Tools>VirtualCam**
-- Open terminal shell and enter `ffmpeg -y -f dshow -i video="OBS Virtual Camera" -i "Map_colors_paletteuse.png" -filter_complex "paletteuse" -f rawvideo -c:v mjpeg -qscale:v 4 -r 20 udp://127.0.0.1:1337`
+- Open terminal shell and enter `ffmpeg -y -f dshow -i video="OBS Virtual Camera" -i "Map_colors_paletteuse.png" -filter_complex "paletteuse" -f rawvideo -c:v mjpeg -qscale:v 6 -r 20 udp://127.0.0.1:1337`
 - Type `/maki` in Minecraft to get the maps
 
 ## Help me
