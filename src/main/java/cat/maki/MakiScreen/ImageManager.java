@@ -12,15 +12,12 @@ import java.util.logging.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.MapInitializeEvent;
-import org.bukkit.map.MapCanvas;
 import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
 import org.bukkit.map.MapView.Scale;
-import org.jetbrains.annotations.NotNull;
 
 /***
  *
@@ -65,14 +62,9 @@ public class ImageManager implements Listener {
             MapView view = event.getMap();
             for (MapRenderer renderer : view.getRenderers())
                 view.removeRenderer(renderer);
-            view.addRenderer(new MapRenderer(true) {
-                @Override
-                public void render(@NotNull MapView mapView, @NotNull MapCanvas mapCanvas, @NotNull Player player) {
-                    VideoCapture.renderCanvas(getImage(view.getId()), mapCanvas);
-                }
-            });
-            view.setScale(Scale.FARTHEST);
+            view.setScale(Scale.CLOSEST);
             view.setTrackingPosition(false);
+            MakiScreen.screens.add(new ScreenPart(view.getId(), getImage(view.getId())));
         }
     }
 
