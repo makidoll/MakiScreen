@@ -66,6 +66,7 @@ public class VideoCapture extends Thread {
     public int height;
     MakiScreen plugin;
     public static BufferedImage currentFrame;
+    private static long lastFrameTime;
 
     VideoCaptureUDPServer videoCaptureUDPServer;
 

@@ -16,9 +16,9 @@
 - Download [FFmpeg](http://ffmpeg.org/download.html) and make sure its in your path
 - Download [OBS](https://obsproject.com)
 - Run **Paper** server and make sure port **1337 UDP** is available
-- Run **OBS** and make sure the output resolution is **512x256** and the base resolution is set to ***1440x720*** or any resolution with 2:1 aspect ratio, and set the frame rate to **20**
+- Run **OBS** and make sure the output resolution is **1024x512** and the base resolution is set to ***1440x720*** or any resolution with 2:1 aspect ratio, and set the frame rate to **20**
 - Turn on your ***OBS Virtual Camera***
-- Open terminal shell and enter `ffmpeg -y -f dshow -i video="OBS Virtual Camera" -i "Map_colors_paletteuse.png" -filter_complex "paletteuse" -f rawvideo -c:v mjpeg -qscale:v 8 -r 20 udp://127.0.0.1:1337`
+- Open terminal shell and enter `ffmpeg -y -f dshow -thread_queue_size 1024 -hwaccel cuda -hwaccel_output_format cuda -i video="OBS Virtual Camera" -f rawvideo -c:v mjpeg -qscale:v 10 -r 20 udp://127.0.0.1:1337`
 - Type `/maki` in Minecraft to get the maps
 
 ## Help me
@@ -28,3 +28,4 @@ You can contact me on **Discord** at [Maki#4845](https://maki.cat/discord) or on
 ## Credit
 - [CodedRed](https://www.youtube.com/channel/UC_kPUW3XPrCCRT9a4Pnf1Tg) For ImageManager class
 - [DNx5](https://github.com/dnx5) for synchronizing the maps and optimizing the code
+- [EzMediaCore](https://github.com/MinecraftMediaLibrary/EzMediaCore) for the dither algorithm
