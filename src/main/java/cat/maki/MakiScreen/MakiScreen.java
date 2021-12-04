@@ -1,12 +1,5 @@
 package cat.maki.MakiScreen;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Logger;
 import net.minecraft.network.protocol.game.PacketPlayOutMap;
 import net.minecraft.world.level.saveddata.maps.WorldMap.b;
 import org.bukkit.Bukkit;
@@ -24,6 +17,14 @@ import org.bukkit.map.MapView;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Logger;
 
 public final class MakiScreen extends JavaPlugin implements Listener {
 
@@ -57,7 +58,7 @@ public final class MakiScreen extends JavaPlugin implements Listener {
                 PacketPlayOutMap[] packets = new PacketPlayOutMap[screens.size()];
                 for (int i = 0; i < screens.size(); i++) {
                     ScreenPart screen = screens.get(i);
-                    packets[i] = getPacket(screen.mapId, buffers[screen.partId]);
+                    packets[i] = getPacket(screen.getMapId(), buffers[screen.getPartId()]);
                 }
 
                 for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {

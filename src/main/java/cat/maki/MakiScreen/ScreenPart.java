@@ -1,11 +1,11 @@
 package cat.maki.MakiScreen;
 
-public class ScreenPart {
-    public final int mapId;
-    public final int partId;
+public record ScreenPart(int mapId, int partId) {
+    public int getMapId() {
+        return mapId;
+    }
 
-    public ScreenPart(int mapId, int partId) {
-        this.mapId = mapId;
-        this.partId = partId;
+    public int getPartId() {
+        return partId;
     }
 }

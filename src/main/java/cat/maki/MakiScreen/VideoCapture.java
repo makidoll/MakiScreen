@@ -1,12 +1,12 @@
 package cat.maki.MakiScreen;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import javax.imageio.ImageIO;
 
 // https://stackoverflow.com/questions/21420252/how-to-receive-mpeg-ts-stream-over-udp-from-ffmpeg-in-java
 class VideoCaptureUDPServer extends Thread {
