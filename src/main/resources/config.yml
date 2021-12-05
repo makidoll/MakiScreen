@@ -1,0 +1,5 @@
+# Set your OBS output resolution according to this option below.
+# 1 = 256x128
+# 2 = 512x256
+# 3 = 1024x512
+size: 2

@@ -1,19 +1,15 @@
 package cat.maki.MakiScreen;
 
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Logger;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.MapMeta;
-import org.bukkit.map.MapRenderer;
-import org.bukkit.map.MapView;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Logger;
 
 public final class MakiScreen extends JavaPlugin implements Listener {
 
@@ -30,9 +26,26 @@ public final class MakiScreen extends JavaPlugin implements Listener {
         logger.info("Hi!");
         getServer().getPluginManager().registerEvents(this, this);
 
-        int width = 128 * 4;
-        int height = 128 * 2;
-        videoCapture = new VideoCapture(this, width, height);
+        ConfigFile configFile = new ConfigFile(this);
+        configFile.run();
+
+        manager.removeAllData();
+        for (int i=0; i<ConfigFile.getMapAmount(); i++) {
+            manager.saveImage(i, i);
+        }
+
+
+        logger.info("Config file loaded \n"+
+                "Map amount: " + ConfigFile.getMapAmount() +"\n"+
+                "Map Width: " + ConfigFile.getMapWidth() +"\n"+
+                "VC Height: " + ConfigFile.getVCHeight() +"\n"+
+                "VC Width: " + ConfigFile.getVCWidth()
+        );
+
+        videoCapture = new VideoCapture(this,
+                ConfigFile.getVCWidth(),
+                ConfigFile.getVCHeight()
+        );
         videoCapture.start();
 
         FrameProcessorTask frameProcessorTask = new FrameProcessorTask();
@@ -57,24 +70,12 @@ public final class MakiScreen extends JavaPlugin implements Listener {
                 return false;
             }
 
-            for (int i=0; i<32; i++) {
-                MapView mapView = getServer().createMap(player.getWorld());
-                mapView.setScale(MapView.Scale.CLOSEST);
-                mapView.setUnlimitedTracking(true);
-                for (MapRenderer renderer : mapView.getRenderers()) {
-                    mapView.removeRenderer(renderer);
-                }
+            for (int i=0; i<ConfigFile.getMapAmount(); i++) {
+                getServer().dispatchCommand(player, "give "+player.getName()+" minecraft:filled_map{map:"+i+"}");
 
-                ItemStack itemStack = new ItemStack(Material.FILLED_MAP);
-
-                MapMeta mapMeta = (MapMeta) itemStack.getItemMeta();
-                mapMeta.setMapView(mapView);
-
-                itemStack.setItemMeta(mapMeta);
-                player.getInventory().addItem(itemStack);
-                screens.add(new ScreenPart(mapView.getId(), i));
+                screens.add(new ScreenPart(i, i));
                 ImageManager manager = ImageManager.getInstance();
-                manager.saveImage(mapView.getId(), i);
+                manager.saveImage(i, i);
             }
         }
 

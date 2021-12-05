@@ -6,6 +6,7 @@ import com.google.common.collect.EvictingQueue;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.util.Queue;
+
 import org.bukkit.scheduler.BukkitRunnable;
 
 class FrameProcessorTask extends BukkitRunnable {
@@ -18,13 +19,19 @@ class FrameProcessorTask extends BukkitRunnable {
     return frameBuffers;
   }
 
+//  private final Logger logger = getLogger();
+
+  private final int mapAmount = ConfigFile.getMapAmount();
+  private final int mapWidth = ConfigFile.getMapWidth();
+
+
   private byte[] drawImage(int partId) {
     byte[] bytes = new byte[128 * 128];
 
     int width = frame.getWidth();
     int offset = 0;
-    int startX = ((partId % 8) * 128);
-    int startY = ((partId / 8) * 128);
+    int startX = ((partId % mapWidth) * 128);
+    int startY = ((partId / mapWidth) * 128);
     int maxY = startY + 128;
     int maxX = startX + 128;
     for (int y = startY; y < maxY; y++) {
@@ -47,15 +54,16 @@ class FrameProcessorTask extends BukkitRunnable {
 
   @Override
   public void run() {
+
     frame = VideoCapture.currentFrame;
     if (frame == null) {
       return;
     }
     frameData = ((DataBufferByte) frame.getRaster().getDataBuffer()).getData();
 
-    byte[][] buffers = new byte[32][];
+    byte[][] buffers = new byte[mapAmount][];
 
-    for (int i = 0; i < 32; i++) {
+    for (int i = 0; i < mapAmount; i++) {
       buffers[i] = drawImage(i);
     }
     frameBuffers.offer(buffers);

@@ -24,7 +24,7 @@ class FramePacketSender extends BukkitRunnable {
     PacketPlayOutMap[] packets = new PacketPlayOutMap[MakiScreen.screens.size()];
     for (int i = 0; i < MakiScreen.screens.size(); i++) {
       ScreenPart screen = MakiScreen.screens.get(i);
-      packets[i] = getPacket(screen.mapId, buffers[screen.partId]);
+      packets[i] = getPacket(screen.getMapId(), buffers[screen.getPartId()]);
     }
 
     for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {

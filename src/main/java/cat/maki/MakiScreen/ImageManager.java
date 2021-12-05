@@ -110,6 +110,17 @@ public class ImageManager implements Listener {
     }
 
 
+    public void removeData(int id) {
+        getData().set("ids." + id, null);
+        saveData();
+    }
+
+    public void removeAllData() {
+        getData().set("ids", null);
+        saveData();
+    }
+
+
     /***
      *
      * @author CodedRed
