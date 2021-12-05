@@ -19,7 +19,6 @@ class FrameProcessorTask extends BukkitRunnable {
     return frameBuffers;
   }
 
-//  private final Logger logger = getLogger();
 
   private final int mapAmount = ConfigFile.getMapAmount();
   private final int mapWidth = ConfigFile.getMapWidth();
