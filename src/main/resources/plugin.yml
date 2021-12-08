@@ -1,6 +1,6 @@
 name: MakiScreen
 description: Having fun!
-version: 1.1
+version: 1.1.1
 api-version: 1.17
 main: cat.maki.MakiScreen.MakiScreen
 commands:

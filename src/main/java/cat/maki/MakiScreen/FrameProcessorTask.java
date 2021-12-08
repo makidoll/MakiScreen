@@ -192,7 +192,9 @@ class FrameProcessorTask extends BukkitRunnable {
 
     if (modified) {
       this.cachedMapData[partId] = bytes;
-      return bytes;
+      byte[] result = new byte[bytes.length];
+      System.arraycopy(bytes,0, result, 0, bytes.length);
+      return result;
     }
     return null;
   }
