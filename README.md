@@ -1,7 +1,7 @@
 # MakiScreen
 > 📺 Streaming OBS video into maps on item frames at a high frame rate
 
-[![](youtube-embed.png)](https://youtu.be/IvEZr8z5eu4)
+https://user-images.githubusercontent.com/85983303/145196832-21b2bd1a-b531-4d8d-8ac0-56274d829828.mp4
 
 ## How does it work
 
@@ -12,7 +12,7 @@
 
 ## Get started (It's not easy, and it's experimental)
 
-**Beware that map ID 0 to 32 will probably be overwritten**
+**Beware that map will probably be overwritten**
 
 - Download [MakiScreen](https://github.com/makitsune/MakiScreen/releases/tag/1.0) jar and place in Spigot 1.13+ server plugins
 - Download [FFmpeg](http://ffmpeg.org/download.html) and make sure it's in your path
@@ -21,11 +21,12 @@
 - Change the ***size*** setting in config.yml to match your output resolution
 - Run **OBS** and make sure the output resolution is according to the config option and the base resolution is set to same as the config or any resolution with 2:1 aspect ratio, and set the frame rate to **20**
 - Turn on your ***OBS Virtual Camera***
-- Open terminal shell and enter `ffmpeg -y -f dshow -thread_queue_size 4096 -hwaccel cuda -hwaccel_output_format cuda -i video="OBS Virtual Camera" -i "Map_colors_paletteuse.png" -lavfi "paletteuse" -f rawvideo -c:v mjpeg -qscale:v 3 -r 20 udp://127.0.0.1:1337`
+- Open terminal shell and enter `ffmpeg -y -f dshow -thread_queue_size 4096 -hwaccel cuda -hwaccel_output_format cuda -i video="OBS Virtual Camera" -f rawvideo -c:v mjpeg -qscale:v 1 -r 20 udp://127.0.0.1:1337`
   - you can remove `-hwaccel cuda -hwaccel_output_format cuda` if you're not using nvidia GPU
-  - remove this `-i "Map_colors_paletteuse.png" -lavfi "paletteuse"` dither filter if you had a problem with performance
-  - set `-qscale:v 3` from 1 to 31 to lower your bitrate
+  - set `-qscale:v 1` you can increase this value from 1 to 31 to lower your bitrate
 - Run **Paper** server and Type `/maki` in Minecraft to get the maps
+
+if your performance went doodoo, you could try removing both data.yml in the MakiScreen folder and removing anything in the data folder in the world folder
 
 ## Help me
 
@@ -33,5 +34,5 @@ You can contact me on **Discord** at [Maki#4845](https://maki.cat/discord) or on
 
 ## Credit
 - [CodedRed](https://www.youtube.com/channel/UC_kPUW3XPrCCRT9a4Pnf1Tg) For ImageManager class
-- [DNx5](https://github.com/dnx5) for synchronizing the maps and optimizing the code
+- [DNx5](https://github.com/dnx5) for synchronizing the maps, optimizing the code, implementing sierra2 dithering. literally do all the hard work for me
 - [EzMediaCore](https://github.com/MinecraftMediaLibrary/EzMediaCore) for the dither algorithm
