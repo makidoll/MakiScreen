@@ -1,7 +1,7 @@
 # MakiScreen
 > 📺 Streaming OBS video into maps on item frames at a high frame rate
 
-https://user-images.githubusercontent.com/85983303/145196832-21b2bd1a-b531-4d8d-8ac0-56274d829828.mp4
+https://user-images.githubusercontent.com/85983303/145347904-9933197b-7d95-47ef-9a8b-be37b285ae10.mp4
 
 ## How does it work
 
