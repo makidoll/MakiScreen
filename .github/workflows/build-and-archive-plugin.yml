@@ -1,0 +1,33 @@
+name: Build and archive plugin
+on: [push]
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Set up JDK 17
+              uses: actions/setup-java@v2
+              with:
+                  java-version: "17"
+                  distribution: "adopt"
+
+            - uses: actions/cache@v1
+              with:
+                  path: ~/.m2/repository
+                  key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-maven-
+
+            - name: Build and package
+              run: mvn -B package
+
+            - name: Output short git SHA
+              id: vars
+              run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
+            - name: Archive artifacts
+              uses: actions/upload-artifact@v2
+              with:
+                  name: MakiScreen-${{ steps.vars.outputs.sha_short }}
+                  path: target/*.jar
