@@ -22,8 +22,12 @@ jobs:
             - name: Build and package
               run: mvn -B package
 
+            - name: Output short git SHA
+              id: vars
+              run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
             - name: Archive artifacts
               uses: actions/upload-artifact@v2
               with:
-                  name: MakiScreen-${{ github.ref_name }}-${{ github.sha }}
+                  name: MakiScreen-${{ steps.vars.outputs.sha_short }}
                   path: target/*.jar
