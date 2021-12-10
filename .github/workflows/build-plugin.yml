@@ -25,5 +25,5 @@ jobs:
             - name: Archive artifacts
               uses: actions/upload-artifact@v2
               with:
-                  name: dist
+                  name: MakiScreen-${{ github.ref_name }}-${{ github.sha }}
                   path: target/*.jar
