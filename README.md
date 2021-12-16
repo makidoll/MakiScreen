@@ -14,7 +14,7 @@ https://user-images.githubusercontent.com/85983303/145347904-9933197b-7d95-47ef-
 
 **Beware that map will probably be overwritten**
 
-- Download [MakiScreen](https://github.com/makitsune/MakiScreen/releases/tag/1.0) jar and place in Spigot 1.13+ server plugins
+- Download [MakiScreen](https://github.com/makitsune/MakiScreen/actions) jar and place in Spigot 1.13+ server plugins
 - Download [FFmpeg](http://ffmpeg.org/download.html) and make sure it's in your path
 - Download [OBS](https://obsproject.com)
 - Run **Paper** server and make sure port **1337 UDP** is available, and then turn it off after the server has finished starting up
