@@ -6,7 +6,7 @@
 
     <groupId>cat.maki</groupId>
     <artifactId>MakiScreen</artifactId>
-    <version>1.1.1</version>
+    <version>1.2.0</version>
 
     <properties>
         <java.version>16</java.version>
@@ -69,13 +69,13 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.17.1-R0.1-SNAPSHOT</version>
+            <version>1.18.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>io.papermc.paper</groupId>
-            <artifactId>paper</artifactId>
-            <version>1.17.1-R0.1-SNAPSHOT</version>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>1.18.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

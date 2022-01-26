@@ -1,20 +1,22 @@
 package cat.maki.MakiScreen;
 
-import net.minecraft.network.protocol.game.PacketPlayOutMap;
-import net.minecraft.world.level.saveddata.maps.WorldMap.b;
-import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.scheduler.BukkitRunnable;
-
+import java.net.http.WebSocket.Listener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
-class FramePacketSender extends BukkitRunnable implements Listener {
+import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import net.minecraft.network.protocol.game.PacketPlayOutMap;
+import net.minecraft.world.level.saveddata.maps.WorldMap.b;
+import net.minecraft.server.network.PlayerConnection;
+
+class FramePacketSender extends BukkitRunnable implements Listener, org.bukkit.event.Listener {
   private long frameNumber = 0;
   private final Queue<byte[][]> frameBuffers;
   private final MakiScreen plugin;
@@ -79,10 +81,10 @@ class FramePacketSender extends BukkitRunnable implements Listener {
   }
 
   private void sendToPlayer(Player player, List<PacketPlayOutMap> packets) {
-    CraftPlayer craftPlayer = (CraftPlayer) player;
+    final PlayerConnection connection = ((CraftPlayer) player).getHandle().b;
     for (PacketPlayOutMap packet : packets) {
       if (packet != null) {
-        craftPlayer.getHandle().networkManager.sendPacket(packet);
+        connection.a(packet);
       }
     }
   }

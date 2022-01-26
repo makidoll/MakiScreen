@@ -146,9 +146,7 @@ class FrameProcessorTask extends BukkitRunnable {
         return;
       }
       frameData = ((DataBufferByte) frame.getRaster().getDataBuffer()).getData();
-      long l = System.nanoTime();
       ditherFrame();
-      long diff = System.nanoTime() - l;
 //      System.out.println("DitherTime: " + diff + "ns");
 
       byte[][] buffers = new byte[mapSize][];
