@@ -24,13 +24,45 @@ class VideoCaptureUDPServer extends Thread {
 
             ByteArrayOutputStream output = new ByteArrayOutputStream();
 
+            int soi = 0; // start of image / SOI
+            int eoi = 0; // end of image / EOI
             while (running) {
                 socket.receive(packet);
 
                 byte[] data = packet.getData();
 
-                if (data[0]==-1 && data[1]==-40) { // FF D8 (start of file)
-                    if (output.size()>0) {
+                int length = packet.getLength();
+                for (int i = packet.getOffset(); i < length; i++) {
+                    byte b = data[i];
+                    switch (b) {
+                        case (byte) 0xFF:
+                            if (soi % 2 == 0) soi++; // find next byte
+                            if (eoi == 0) eoi++;
+                            break;
+                        case (byte) 0xD8:
+                            if (soi % 2 == 1) {
+                                soi++; // first SOI found
+                            }
+                            if (soi == 4) {
+                                // found another SOI, probably incomplete frame.
+                                // discard previous data, restart with this SOI
+                                output.reset();
+                                output.write(0xFF);
+                                soi = 2;
+                            }
+                            break;
+                        case (byte) 0xD9:
+                            if (eoi == 1) eoi++; // EOI found
+                            break;
+                        default:
+                            // wrong byte, reset
+                            if (soi == 1) soi = 0;
+                            if (eoi == 1) eoi = 0;
+                            if (soi == 3) soi--;
+                            break;
+                    }
+                    output.write(b);
+                    if (eoi == 2) { // image is complete
                         try {
                             ByteArrayInputStream stream = new ByteArrayInputStream(output.toByteArray());
                             BufferedImage bufferedImage = ImageIO.read(stream);
@@ -41,12 +73,13 @@ class VideoCaptureUDPServer extends Thread {
                             e.printStackTrace();
                         }
 
-                        output.reset();
+                        // reset
+                         output.reset();
+                        soi = 0;
+                        eoi = 0;
                     }
                 }
 
-                output.write(data,0,packet.getLength());
-                //System.out.println(String.format("%02X", data[0])+" "+String.format("%02X", data[1]));
             }
 
         } catch (IOException e) {
