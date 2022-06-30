@@ -14,7 +14,7 @@ https://user-images.githubusercontent.com/85983303/145347904-9933197b-7d95-47ef-
 
 **Beware that map will probably be overwritten**
 
-- Download [MakiScreen](https://github.com/makitsune/MakiScreen/actions) jar **not** the `Original-` and place it in the server plugins folder
+- Download [MakiScreen](https://github.com/makifoxgirl/MakiScreen/releases) jar and place it in the server plugins folder
 - Download [FFmpeg](http://ffmpeg.org/download.html) and make sure it's in your path (or add it to your PATH environment variable)
 - Download [OBS](https://obsproject.com)
 - Run **Paper** server and make sure port **1337 UDP** is available, and then turn it off after the server has finished starting up
