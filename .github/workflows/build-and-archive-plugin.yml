@@ -1,5 +1,6 @@
 name: Build and archive plugin
-on: [push, workflow_dispatch]
+# TODO: should look for tags and version the plugin in pom.xml
+on: [workflow_dispatch]
 jobs:
     build:
         runs-on: ubuntu-latest
